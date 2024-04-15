@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import configENV from '../configs/config.mongodb.js';
 import CheckConnect from '../helpers/check.connect.js';
 
-const { port, host, name} = configENV
+const { port, host, name} = configENV.db
 const uri = `mongodb://${host}:${port}/${name}`;
 const options = {
     useNewUrlParser: true,
