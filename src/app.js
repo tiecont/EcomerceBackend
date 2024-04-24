@@ -7,9 +7,13 @@ import morgan from 'morgan';
 const app = express()
 // init middleware
 app.use(morgan())
-// compile - common - short - tiny
+// compile - common - short - tinynpm i
 app.use(helmet())
 app.use(compression())
+app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 
 // init db
 import './dps/init.mongodb.js';

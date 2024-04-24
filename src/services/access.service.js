@@ -1,7 +1,9 @@
 'use strict'
 
 import crypto from 'crypto'
-import shopModel from "../models/shop.model"
+import createTokenPair from '../auth/authUtils.js'
+import shopModel from "../models/shop.model.js"
+import KeytokenService from '../services/keytoken.service.js'
 const RuleShop = {
     SHOP: 'SHOP',
     WRITER: 'WRITER',
@@ -30,6 +32,32 @@ class AccessService {
                     modulusLength: 4096
                 })
                 console.log({ privateKey, publicKey})
+
+                const publicKeyString = await KeytokenService.createKeyToken({
+                    userID: newShop._id,
+                    publicKey
+                })
+
+                if (!publicKeyString) {
+                    return {
+                        code: 'xxx',
+                        message: 'publicKeyString error'
+                    }
+                }
+                // create token pair
+                const tokens = await createTokenPair({userID: newShop._id, email}, publicKey, privateKey)
+                console.log('Created Token Success: ', tokens)
+                return {
+                    code: '201',
+                    metadata: {
+                        shop: newShop,
+                        tokens
+                    }
+                }
+            }
+            return {
+                code: '200',
+                metadata: null
             }
         } catch (error) {
             return {
@@ -41,4 +69,4 @@ class AccessService {
     }
 }
 
-export default new AccessService
+export default AccessService

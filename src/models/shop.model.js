@@ -1,8 +1,8 @@
 'use strict'
 
-const mongoose = require('mongoose'); // Erase if already required
-
+import { Schema, mongoose } from "mongoose";
 // Declare the Schema of the Mongo model
+const COLLECTION_NAME = 'shop'
 var shopSchema = new mongoose.Schema({
     name:{
         type:String,
