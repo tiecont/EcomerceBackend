@@ -1,5 +1,6 @@
 'use strict'
 
+import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import createTokenPair from '../auth/authUtils.js'
 import shopModel from "../models/shop.model.js"
@@ -12,7 +13,7 @@ const RuleShop = {
 }
 class AccessService {
 
-    static signup = async ({ name, email, password}) => {
+    static signUp = async ({ name, email, password}) => {
         try {
             //step1: check email exists?
             const holderShop = await shopModel.findOne({ email }).lean()
