@@ -1,15 +1,16 @@
 'use strict'
 import keyTokenModel from '../models/keytoken.model.js'
 class KeyTokenService {
-    static createKeyToken = async ({ userID, publicKey }) => {
+    static createKeyToken = async ({ userID, publicKey, privateKey }) => {
         try {
-            const publicKeyString = publicKey.toString()
+            // const publicKeyString = publicKey.toString()
             const tokens = await keyTokenModel.create({
                 user: userID,
-                publicKey: publicKeyString
+                publicKey,  //publicKeyString
+                privateKey
             })
 
-            return tokens ? publicKeyString : null
+            return tokens ? publicKey : null
         } catch (error) {
             return error
         }

@@ -1,17 +1,18 @@
 'use strict'
 
 import bcrypt from 'bcrypt'
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import createTokenPair from '../auth/authUtils.js'
 import shopModel from "../models/shop.model.js"
 import KeytokenService from '../services/keytoken.service.js'
+import getInfoData from '../utils/index.js'
 const RuleShop = {
     SHOP: 'SHOP',
     WRITER: 'WRITER',
     EDITOR: 'EDITOR',
     ADMIN: 'ADMIN'
 }
-class AccessService {
+export default class AccessService {
 
     static signUp = async ({ name, email, password}) => {
         try {
@@ -29,20 +30,33 @@ class AccessService {
             })
             if (newShop) {
                 // Created privateKey, publicKey
-                const {privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-                    modulusLength: 4096
-                })
+                // const {privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+                //     modulusLength: 4096,
+                //     publicKeyEncoding: {
+                //         type: 'pkcs1', // pkcs8
+                //         format: 'pem'
+                //     },
+                //     privateKeyEncoding: {
+                //         type:'pkcs1',
+                //         format: 'pem'
+                //     }
+                // })
+
+                const privateKey = crypto.randomBytes(64).toString('hex')
+                const publicKey = crypto.randomBytes(64).toString('hex')
                 console.log({ privateKey, publicKey})
 
-                const publicKeyString = await KeytokenService.createKeyToken({
+
+                const keyStore = await KeytokenService.createKeyToken({
                     userID: newShop._id,
-                    publicKey
+                    publicKey,
+                    privateKey
                 })
 
-                if (!publicKeyString) {
+                if (!keyStore) {
                     return {
                         code: 'xxx',
-                        message: 'publicKeyString error'
+                        message: 'keyStore error'
                     }
                 }
                 // create token pair
@@ -51,7 +65,7 @@ class AccessService {
                 return {
                     code: '201',
                     metadata: {
-                        shop: newShop,
+                        shop: getInfoData({ fields: ['_id', 'name', 'email'], object: newShop}),
                         tokens
                     }
                 }
@@ -69,5 +83,3 @@ class AccessService {
         }
     }
 }
-
-export default AccessService
