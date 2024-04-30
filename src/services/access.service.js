@@ -3,6 +3,7 @@
 import bcrypt from 'bcrypt'
 import crypto from 'node:crypto'
 import createTokenPair from '../auth/authUtils.js'
+import { BadRequestError } from '../core/error.response.js'
 import shopModel from "../models/shop.model.js"
 import KeytokenService from '../services/keytoken.service.js'
 import getInfoData from '../utils/index.js'
@@ -13,16 +14,12 @@ const RuleShop = {
     ADMIN: 'ADMIN'
 }
 export default class AccessService {
-
     static signUp = async ({ name, email, password}) => {
-        try {
+        // try {
             //step1: check email exists?
             const holderShop = await shopModel.findOne({ email }).lean()
             if (holderShop) {
-                return {
-                    code: 'xxxx',
-                    message: 'Shop already registered!'
-                }
+                throw new BadRequestError('Error: Shop already registered!')
             }
             const passwordHash = await bcrypt.hash(password, 10)
             const newShop = await shopModel.create({
@@ -74,12 +71,12 @@ export default class AccessService {
                 code: '200',
                 metadata: null
             }
-        } catch (error) {
-            return {
-                code: 'xxx',
-                message: error.message,
-                status: 'error'
-            }
-        }
+        // } catch (error) {
+        //     return {
+        //         code: 'xxx',
+        //         message: error.message,
+        //         status: 'error'
+        //     }
+        // }
     }
 }
