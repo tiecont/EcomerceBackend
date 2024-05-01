@@ -17,9 +17,13 @@ var keytokenSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    refreshToken:{
+    refreshTokensUsed:{
         type: Array, default: [],
     },
+    refreshTokens: {
+        type: String,
+        require: true
+    }
 }, {
     collection: COLLECTION_NAME,
     timestamps: true,
