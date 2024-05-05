@@ -1,5 +1,5 @@
 'use strict'
-import { default as AccessService, default as accessService } from "../services/access.service.js";
+import { default as AccessService } from "../services/access.service.js";
 import { CREATED, SuccessResponse } from './../core/success.response.js';
 
 export default new class AccessController {
@@ -17,7 +17,7 @@ export default new class AccessController {
     signUp = async (req, res, next) => {
         new CREATED({
             message: 'Registered OK!',
-            metadata: await accessService.signUp(req.body)
+            metadata: await AccessService.signUp(req.body)
         }).send(res)
     }
 }

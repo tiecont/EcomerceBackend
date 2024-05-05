@@ -16,7 +16,8 @@ const RuleShop = {
 }
 export default class AccessService {
     static logout = async (keyStore) => {
-        return delKey = await KeytokenService.removeKeyById(keyStore._id)
+        const delKey = await KeytokenService.removeTokenById(keyStore._id)
+        return delKey
     }
     static login = async ({ email, password, refreshToken = null}) => {
         /*
@@ -30,7 +31,7 @@ export default class AccessService {
         const foundShop = await findByEmail({ email })
         if (!foundShop) throw new BadRequestError('Error: Shop not registered!')
         // 2
-        const match = bcrypt.compare( password, foundShop.password)
+        const match = bcrypt.compare(password, foundShop.password)
         if (!match) throw new AuthFailureError('Authentication Error')
         // 3
         const privateKey = crypto.randomBytes(64).toString('hex')

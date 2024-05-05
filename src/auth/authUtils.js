@@ -55,15 +55,14 @@ export const authentication = asyncHandler( async (req, res, next) => {
    // 3
    const accessToken = req.headers[HEADER.AUTHORIZATION]
    if (!accessToken) throw new AuthFailureError('Invalid Request')
-
    try {
-        const decodeUser  = JWT.verify( accessToken, keyStore.publicKey)
-        if (user != decodeUser.userId) throw new AuthFailureError('Invalid User')
-        request.keyStore = keyStore
+        const decodeUser = JWT.verify(accessToken, keyStore.publicKey)
+        if (userId != decodeUser.userId) throw new AuthFailureError('Invalid User')
+        req.keyStore = keyStore
    } catch (error) {
         throw error
    }
    // 4
-
+   return next()
 })
 
