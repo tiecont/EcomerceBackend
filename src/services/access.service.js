@@ -2,8 +2,8 @@
 
 import bcrypt from 'bcrypt'
 import crypto from 'node:crypto'
-import { createTokenPair } from '../auth/authUtils.js'
-import { AuthFailureError, BadRequestError } from '../core/error.response.js'
+import { createTokenPair, verifyJWT } from '../auth/authUtils.js'
+import { AuthFailureError, BadRequestError, ForBiddenError } from '../core/error.response.js'
 import shopModel from "../models/shop.model.js"
 import KeytokenService from '../services/keytoken.service.js'
 import getInfoData from '../utils/index.js'
@@ -15,6 +15,43 @@ const RuleShop = {
     ADMIN: 'ADMIN'
 }
 export default class AccessService {
+    static handleRefreshToken = async ( refreshToken ) => {
+        /*
+            check token used?
+        */
+        const foundToken = await KeytokenService.findByRefreshTokenUsed( refreshToken )
+        if (foundToken) {
+            // decode 
+            const { userId, email } = await verifyJWT(refreshToken, foundToken.privateKey)
+            console.log({ userId, email})
+            await KeytokenService.deleteKeyById(userId)
+            throw new ForBiddenError('Something is wrong. Pls relogin')
+        }
+
+        const holderToken = await KeytokenService.findByRefreshToken(refreshToken)
+        if (!holderToken) throw new AuthFailureError('Shop not registered')
+        const { userId, email } = await verifyJWT(refreshToken, holderToken.privateKey)
+        console.log('[2]--',{ userId, email})
+        const foundShop = await findByEmail({email})
+        if (!foundShop) throw new AuthFailureError('Error: Shop not registered!')
+
+        // create 1 cặp mới
+        const tokens = await createTokenPair({userId, email}, holderToken.publicKey, holderToken.privateKey)
+       
+        // update token 
+        await holderToken.update({
+            $set: {
+                refreshToken: tokens.refreshToken
+            },
+            $addToSet: {
+                refreshTokenUsed: refreshToken // đã được sử dụng để lấy token mới
+            }
+        })
+        return {
+            user: { userId, email},
+            tokens
+        }
+    }
     static logout = async (keyStore) => {
         const delKey = await KeytokenService.removeTokenById(keyStore._id)
         return delKey

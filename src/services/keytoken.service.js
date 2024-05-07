@@ -39,4 +39,13 @@ export default class KeyTokenService {
         })
         return result;
     }
+    static findByRefreshTokenUsed = async ( refreshToken ) => {
+        return await keyTokenModel.findOne({ refreshTokenUsed: refreshToken}).lean()
+    }
+    static findByRefreshToken = async ( refreshToken ) => {
+        return await keyTokenModel.findOne({ refreshToken })
+    }
+    static deleteKeyById = async (userId) => {
+        return await keyTokenModel.findByIdAndDelete({ userId: userId })
+    }
 }
