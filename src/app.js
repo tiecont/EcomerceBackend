@@ -22,6 +22,7 @@ import router from './routes/index.js';
 checkConnect.checkOverLoad()
 // init routes
 app.use('/', router)
+
 // handling errors
 app.use((req, res, next) => {
     // middleware
@@ -34,6 +35,7 @@ app.use((error, req, res, next) => {
     return res.status(statusCode).json({
         status: 'error',
         code: statusCode,
+        stack: error.stack,
         message: error.message || 'Internal Server Error'
     })
 

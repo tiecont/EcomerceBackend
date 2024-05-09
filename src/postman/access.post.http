@@ -1,12 +1,31 @@
-@url_dev=http://localhost:3055/v1/api/
+@url_dev=http://localhost:3055/v1/api
 
 ### signup
-POST {{url_dev}}/shop/handleRefreshToken
+POST {{url_dev}}/product
 Content-Type: application/json
 x-api-key: f448b19cde49a4efcf7330bc45d3db28e0587b49c7a2783781b323d3975ced1b5d7080e743ee31390264cb3f972374d85d2139cd0576b78230d3a88540af852f
-x-client-id: 663979bc01fbbc4b3976a0f4
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM5NzliYzAxZmJiYzRiMzk3NmEwZjQiLCJlbWFpbCI6IlNob3BEZXZUaXBKczJAZ21haWwuY29tIiwiaWF0IjoxNzE1MDYwNTk1LCJleHAiOjE3MTUyMzMzOTV9.9QW88G2t2iDnZAJqKF5q2PfTpKXuykGGqJVdezAazTg
+x-client-id: 6631bfa83f94c740dd93c61e
+x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTUyMzM5MDksImV4cCI6MTcxNTgzODcwOX0.2zEZaOfuf1kvZuVavtvQ_XCXC5MKpJZNV66fmVuC8H8
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTUyMzM5MDksImV4cCI6MTcxNTQwNjcwOX0.VT8JrRCPQUPyNib50y6xwDSjsz5hBHz5ZblDOxm7UhM
+
+# {
+#     "name": "Shop TIPS",
+#     "email": "ShopDevTipJs@gmail.com",
+#     "password": "123"
+# }
+
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM5NzliYzAxZmJiYzRiMzk3NmEwZjQiLCJlbWFpbCI6IlNob3BEZXZUaXBKczJAZ21haWwuY29tIiwiaWF0IjoxNzE1MDYwNTk1LCJleHAiOjE3MTU2NjUzOTV9.AWgOWnZdU54ZqzpGDawrZbdffdPw2J59tOK0X5_pMuI"
+    "product_name": "Iphone 15 128GB",
+    "product_description": "New Product",
+    "product_price": 500,
+    "product_shop": "6631bfa83f94c740dd93c61e",
+    "product_type": "Electronics",
+    "product_thumb": "product_thumb",
+    "product_quantity": 5,
+    "product_attributes": {
+        "manufacturer": "Apple",
+        "model": "Iphone 15",
+        "color": "Gold"
+    }
 }

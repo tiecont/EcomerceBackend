@@ -4,9 +4,19 @@ import { CREATED, SuccessResponse } from './../core/success.response.js';
 
 export default new class AccessController {
     handleRefreshToken = async (req, res, next) => {
+    //     new SuccessResponse({
+    //        message: 'Get token Success OK!',
+    //        metadata: await AccessService.handleRefreshToken(req.body.refreshToken)
+    //    }).send(res)
+
+    // v2 fixed
         new SuccessResponse({
            message: 'Get token Success OK!',
-           metadata: await AccessService.handleRefreshToken(req.body.refreshToken)
+           metadata: await AccessService.handleRefreshTokenV2({
+            refreshToken: req.refreshToken,
+            user: req.user,
+            keyStore: req.keyStore
+           })
        }).send(res)
    }
     logout = async (req, res, next) => {

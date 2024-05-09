@@ -15,6 +15,34 @@ const RuleShop = {
     ADMIN: 'ADMIN'
 }
 export default class AccessService {
+    static handleRefreshTokenV2 = async ({ refreshToken, user, keyStore}) => {
+        const { userId, email } = user
+        if (keyStore.refreshTokenUsed.includes(refreshToken)) {
+            await KeytokenService.deleteKeyById(userId)
+            throw new ForBiddenError('Something is wrong. Pls relogin')
+        }
+
+        if (keyStore.refreshToken !== refreshToken) throw new AuthFailureError('Shop not registered')
+        const foundShop = await findByEmail({email})
+        if (!foundShop) throw new AuthFailureError('Error: Shop not registered!')
+
+            // create 1 cặp mới
+            const tokens = await createTokenPair({userId, email}, keyStore.publicKey, keyStore.privateKey)
+           
+            // update token
+            await keyStore.updateOne ({
+                $set: {
+                    refreshToken: tokens.refreshToken
+                },
+                $addToSet: {
+                    refreshTokenUsed: refreshToken // đã được sử dụng để lấy token mới
+                }
+            })
+            return {
+                user,
+                tokens
+            }
+    }
     static handleRefreshToken = async ( refreshToken ) => {
         /*
             check token used?
@@ -31,15 +59,15 @@ export default class AccessService {
         const holderToken = await KeytokenService.findByRefreshToken(refreshToken)
         if (!holderToken) throw new AuthFailureError('Shop not registered')
         const { userId, email } = await verifyJWT(refreshToken, holderToken.privateKey)
-        console.log('[2]--',{ userId, email})
+    
         const foundShop = await findByEmail({email})
         if (!foundShop) throw new AuthFailureError('Error: Shop not registered!')
 
         // create 1 cặp mới
         const tokens = await createTokenPair({userId, email}, holderToken.publicKey, holderToken.privateKey)
        
-        // update token 
-        await holderToken.update({
+        // update token
+        await holderToken.updateOne ({
             $set: {
                 refreshToken: tokens.refreshToken
             },
