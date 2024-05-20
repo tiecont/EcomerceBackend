@@ -1,12 +1,12 @@
 @url_dev=http://localhost:3055/v1/api
 
 ### signup
-POST {{url_dev}}/product
+GET {{url_dev}}/product/drafts/all
 Content-Type: application/json
-x-api-key: f448b19cde49a4efcf7330bc45d3db28e0587b49c7a2783781b323d3975ced1b5d7080e743ee31390264cb3f972374d85d2139cd0576b78230d3a88540af852f
-x-client-id: 6631bfa83f94c740dd93c61e
-x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTUyMzM5MDksImV4cCI6MTcxNTgzODcwOX0.2zEZaOfuf1kvZuVavtvQ_XCXC5MKpJZNV66fmVuC8H8
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTUyMzM5MDksImV4cCI6MTcxNTQwNjcwOX0.VT8JrRCPQUPyNib50y6xwDSjsz5hBHz5ZblDOxm7UhM
+x-api-key: f256e67f448d4a1b7a186bbb645c8e56d6df9a6f5a580966071b097dc4ac8a612ef4b9a9c4ac55de75ba0f34e499bf4dcebc7f321781a72a6a300cbee0acd4f6
+x-client-id: 66366f86ab9ba72a07469e60
+x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYwODU5NDAsImV4cCI6MTcxNjY5MDc0MH0.1ahL4b67slVk_TFhaQ5w76QWWsPTmZ2BI0t2aNpGBys
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYwODU5NDAsImV4cCI6MTcxNjI1ODc0MH0.gwSsnxFvHpYBOAPMGHdMu7doZudYbnAtsX_-nJuPJ3A
 
 # {
 #     "name": "Shop TIPS",
@@ -15,17 +15,17 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNm
 # }
 
 
-{
-    "product_name": "Iphone 15 128GB",
-    "product_description": "New Product",
-    "product_price": 500,
-    "product_shop": "6631bfa83f94c740dd93c61e",
-    "product_type": "Electronics",
-    "product_thumb": "product_thumb",
-    "product_quantity": 5,
-    "product_attributes": {
-        "manufacturer": "Apple",
-        "model": "Iphone 15",
-        "color": "Gold"
-    }
-}
+# {
+#     "product_name": "Băng Quấn Bảo Vệ Khuỷu Tay Co Giản Tốt Tiện Dụng Khi Chơi Thể Thao Cho Nam",
+#     "product_description": "Áo Thun Nam MRM kiểu dáng Regular fit tôn dáng cơ thể, làm nổi bật form người mặc thêm nam tính, khoẻ khoắn mà vẫn thoải mái vận động",
+#     "product_price": 1234.000,
+#     "product_shop": "6631bfa83sf94c740dd93c61e",
+#     "product_type": "Clothing",
+#     "product_thumb": "https://salt.tikicdn.com/cache/100x100/ts/product/d6/4f/c3/71f089380f605d172b54edf6aaa1877e.jpg.webp",
+#     "product_quantity": 23,
+#     "product_attributes": {
+#         "brand": "MRM VietNam China",
+#         "size": "XL",
+#         "material": "Thun"
+#     }
+# }

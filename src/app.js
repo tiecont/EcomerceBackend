@@ -17,9 +17,9 @@ app.use(express.urlencoded({
 
 // init db
 import './dps/init.mongodb.js';
-import checkConnect from './helpers/check.connect.js';
 import router from './routes/index.js';
-checkConnect.checkOverLoad()
+// import checkConnect from './helpers/check.connect.js';
+// checkConnect.checkOverLoad()
 // init routes
 app.use('/', router)
 
