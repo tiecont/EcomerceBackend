@@ -20,9 +20,27 @@ export default new class AccessController {
          product_shop: req.user.userId
         })
     }).send(res)
-
-
    }
+
+   publishProduct = async (req, res, next ) => {
+        new SuccessResponse({
+            message: 'Publish Product Success',
+            metadata: await ProductServiceV2.publishProductByShop({
+            product_id: req.params.id,
+            product_shop: req.user.userId
+            })
+        }).send(res)
+    }
+    unPublishProduct = async (req, res, next ) => {
+        new SuccessResponse({
+            message: 'unPublishProductByShop Product Success',
+            metadata: await ProductServiceV2.unPublishProductByShop({
+            product_id: req.params.id,
+            product_shop: req.user.userId
+            })
+        }).send(res)
+    }
+
    // QUERY
    /**
     * @description Get all drafts for shop
@@ -36,6 +54,29 @@ export default new class AccessController {
         metadata: await ProductServiceV2.findAllDraftForShop({
          product_shop: req.user.userId
         })
+    }).send(res)
+   }
+
+   getAllPublishForShop = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Get List Publish Successfully',
+        metadata: await ProductServiceV2.findAllPublishForShop({
+         product_shop: req.user.userId
+        })
+    }).send(res)
+   }
+
+   getListSearchProduct = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Get List Search Successfully',
+        metadata: await ProductServiceV2.searchProducts(req.params)
+    }).send(res)
+   }
+
+   findAllProducts = async (req, res, next) => {
+    new SuccessResponse({
+        message: 'Get All Products Successfully',
+        metadata: await ProductServiceV2.findAllProducts(req.query)
     }).send(res)
    }
    // END QUERY

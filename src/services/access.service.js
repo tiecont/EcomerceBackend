@@ -6,7 +6,7 @@ import { createTokenPair, verifyJWT } from '../auth/authUtils.js'
 import { AuthFailureError, BadRequestError, ForBiddenError } from '../core/error.response.js'
 import shopModel from "../models/shop.model.js"
 import KeytokenService from '../services/keytoken.service.js'
-import getInfoData from '../utils/index.js'
+import { getInfoData } from '../utils/index.js'
 import findByEmail from './shop.service.js'
 const RuleShop = {
     SHOP: 'SHOP',

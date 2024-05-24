@@ -1,7 +1,8 @@
 'use strict'
 import { BadRequestError } from '../core/error.response.js';
 import { ClothingSchema, ElectronicSchema, FurnitureSchema, ProductSchema } from '../models/product.model.js';
-import { findAllDraftForShop } from '../models/repositories/product.repo.js';
+import { findAllDraftForShop, findAllProducts, findAllPublishForShop, publishProductByShop, unPublishProductByShop } from '../models/repositories/product.repo.js';
+import { searchProductByUser } from './../models/repositories/product.repo.js';
 
 // define factory class to create product
 class ProductFactory {
@@ -20,10 +21,38 @@ class ProductFactory {
         if (!productClass) throw new BadRequestError(`Inavlid Product Types ${type}`)
         return new productClass(payload).createProduct()
     }
-
+    static async updateProduct( type, payload ) {
+        const productClass = ProductFactory.productRegistry[type]
+        if (!productClass) throw new BadRequestError(`Inavlid Product Types ${type}`)
+        return new productClass(payload).createProduct()
+    }
+    // PUT //
+    static async publishProductByShop({ product_shop, product_id}) {
+        return await publishProductByShop({ product_shop, product_id})
+    }
+    // END PUT //
+    static async unPublishProductByShop({ product_shop, product_id}) {
+        return await unPublishProductByShop({ product_shop, product_id})
+    }
+    // Query //
     static async findAllDraftForShop({ product_shop, limit = 50, skip = 0}) {
         const query = { product_shop, isDraft: true }
         return await findAllDraftForShop({ query, limit, skip})
+    }
+    static async findAllPublishForShop({ product_shop, limit = 50, skip = 0}) {
+        const query = { product_shop, isPublished: true }
+        return await findAllPublishForShop({ query, limit, skip})
+    }
+    static async searchProducts( keySearch) {
+        return await searchProductByUser(keySearch)
+    }
+    static async findAllProducts ({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true}}) {
+        return await findAllProducts({ limit, sort, filter, page, 
+            select: ['product_name', 'product_price', 'product_thumb']
+        })
+    }
+    static findAllProducts() {
+        
     }
 }
 

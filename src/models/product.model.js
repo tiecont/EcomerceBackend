@@ -26,12 +26,14 @@ const productSchema = new Schema({
     },
     product_variations: { type: Array, default: [] },
     isDraft: { type: Boolean, default: true, index: true, select: false },
-    isPublish: { type: Boolean, default: false, index: true, select: false },
+    isPublished: { type: Boolean, default: false, index: true, select: false },
 }, {
     collection: COLLECTION_NAME,
     timestamps: true
 });
 
+// create index for search
+productSchema.index({ product_name: 'text', product_description: 'text'})
 // Document middleware: run before .save() and .create()
 productSchema.pre('save', function(next) {
     this.product_slug = slugify(this.product_name, { lower: true });

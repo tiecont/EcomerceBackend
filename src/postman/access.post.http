@@ -1,12 +1,18 @@
 @url_dev=http://localhost:3055/v1/api
 
 ### signup
-GET {{url_dev}}/product/drafts/all
+GET {{url_dev}}/product
+# GET {{url_dev}}/product/drafts/all
+# GET {{url_dev}}/product/publish/all
+# POST {{url_dev}}/product/publish/66501d02a8e1b67ff890c068
+# POST {{url_dev}}/product/unpublish/66501d02a8e1b67ff890c068
+# POST {{url_dev}}/shop/login
+# POST {{url_dev}}/product
 Content-Type: application/json
-x-api-key: f256e67f448d4a1b7a186bbb645c8e56d6df9a6f5a580966071b097dc4ac8a612ef4b9a9c4ac55de75ba0f34e499bf4dcebc7f321781a72a6a300cbee0acd4f6
-x-client-id: 66366f86ab9ba72a07469e60
-x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYwODU5NDAsImV4cCI6MTcxNjY5MDc0MH0.1ahL4b67slVk_TFhaQ5w76QWWsPTmZ2BI0t2aNpGBys
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYwODU5NDAsImV4cCI6MTcxNjI1ODc0MH0.gwSsnxFvHpYBOAPMGHdMu7doZudYbnAtsX_-nJuPJ3A
+x-api-key: bbcc91c7f35dd4ad2f55ba565bfe5f806608fc5c6161060d0eedd5e3ed7c3ae310fd7d3a1410f734f20e3d1722e13687396c3cd58085ae3b298f9aa2f350365c
+x-client-id: 6631bfa83f94c740dd93c61e
+x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY1MTk2OTcsImV4cCI6MTcxNzEyNDQ5N30.O-XAs1qCO81Gj-lce15UukCJR3DHkqhsdk06nEAjWbU
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYxODExMjMsImV4cCI6MTcxNjM1MzkyM30.zPveWWcb_WvzQJdjGu9MTbrd-wklqZEVBjm-T2H2Ew8
 
 # {
 #     "name": "Shop TIPS",
@@ -15,17 +21,18 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFi
 # }
 
 
-# {
-#     "product_name": "Băng Quấn Bảo Vệ Khuỷu Tay Co Giản Tốt Tiện Dụng Khi Chơi Thể Thao Cho Nam",
-#     "product_description": "Áo Thun Nam MRM kiểu dáng Regular fit tôn dáng cơ thể, làm nổi bật form người mặc thêm nam tính, khoẻ khoắn mà vẫn thoải mái vận động",
-#     "product_price": 1234.000,
-#     "product_shop": "6631bfa83sf94c740dd93c61e",
-#     "product_type": "Clothing",
-#     "product_thumb": "https://salt.tikicdn.com/cache/100x100/ts/product/d6/4f/c3/71f089380f605d172b54edf6aaa1877e.jpg.webp",
-#     "product_quantity": 23,
-#     "product_attributes": {
-#         "brand": "MRM VietNam China",
-#         "size": "XL",
-#         "material": "Thun"
-#     }
-# }
+{
+    "product_name": "Product 001",
+    "product_description": "Áo thun nam MRM kiểu dáng Regular fit tôn dáng cơ thể",
+    "product_price": 1234,
+    "product_shop": "6631bfa83f94c740dd93c61e",
+    "product_type": "Clothing",
+    "product_thumb": "product_thumb",
+    "product_quantity": 23,
+    "product_attributes": {
+        "brand": "MRM VietNam China",
+        "size": "XL",
+        "material": "Thun"
+    },
+    "product_ratingsAverage": 4.5
+}
