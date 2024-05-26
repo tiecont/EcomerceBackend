@@ -1,18 +1,19 @@
 @url_dev=http://localhost:3055/v1/api
 
 ### signup
-GET {{url_dev}}/product
+# GET {{url_dev}}/product
+GET {{url_dev}}/search/bang quan
 # GET {{url_dev}}/product/drafts/all
 # GET {{url_dev}}/product/publish/all
-# POST {{url_dev}}/product/publish/66501d02a8e1b67ff890c068
+# POST {{url_dev}}/product/publish/664972570529d443eefb454b
 # POST {{url_dev}}/product/unpublish/66501d02a8e1b67ff890c068
 # POST {{url_dev}}/shop/login
 # POST {{url_dev}}/product
 Content-Type: application/json
-x-api-key: bbcc91c7f35dd4ad2f55ba565bfe5f806608fc5c6161060d0eedd5e3ed7c3ae310fd7d3a1410f734f20e3d1722e13687396c3cd58085ae3b298f9aa2f350365c
-x-client-id: 6631bfa83f94c740dd93c61e
-x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY1MTk2OTcsImV4cCI6MTcxNzEyNDQ5N30.O-XAs1qCO81Gj-lce15UukCJR3DHkqhsdk06nEAjWbU
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNmOTRjNzQwZGQ5M2M2MWUiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTYxODExMjMsImV4cCI6MTcxNjM1MzkyM30.zPveWWcb_WvzQJdjGu9MTbrd-wklqZEVBjm-T2H2Ew8
+x-api-key: de44a21485e24d51931779c2a4b85fc631ab29abed996aa7653b7cee425ae01a4a342b59529826710fe9002c2c593265226ebf534037487ad28ad5719a091c45
+x-client-id: 66366f86ab9ba72a07469e60
+x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY2MDI5OTQsImV4cCI6MTcxNzIwNzc5NH0.ORr5vFDmMONGwrp2uHgAlIqOoPMQahkv-H1HlKvzfp0
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY2MDI5OTQsImV4cCI6MTcxNjc3NTc5NH0.DhziRimB9y2c_d4PI5CC0wZwdtQY8UD_pTEjwv5kZfY
 
 # {
 #     "name": "Shop TIPS",
@@ -20,12 +21,11 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNm
 #     "password": "123"
 # }
 
-
 {
-    "product_name": "Product 001",
+    "product_name": "Product 002",
     "product_description": "Áo thun nam MRM kiểu dáng Regular fit tôn dáng cơ thể",
     "product_price": 1234,
-    "product_shop": "6631bfa83f94c740dd93c61e",
+    "product_shop": "66366f86ab9ba72a07469e60",
     "product_type": "Clothing",
     "product_thumb": "product_thumb",
     "product_quantity": 23,
@@ -33,6 +33,5 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMxYmZhODNm
         "brand": "MRM VietNam China",
         "size": "XL",
         "material": "Thun"
-    },
-    "product_ratingsAverage": 4.5
+    }
 }

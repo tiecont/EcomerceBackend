@@ -1,7 +1,7 @@
 'use strict'
 
 import { Types } from 'mongoose';
-import { getSelectData } from '../../utils/index.js';
+import { getSelectData, unGetSelect } from '../../utils/index.js';
 import { ProductSchema } from "../product.model.js";
 
 export const findAllDraftForShop = async ({ query, limit, skip}) => {
@@ -12,7 +12,7 @@ export const findAllPublishForShop = async ({ query, limit, skip}) => {
     return await queryProduct({ query, limit, skip})
 }
 
-export const searchProductByUser = async (keySearch) => {
+export const searchProductByUser = async ({ keySearch }) => {
     const regexSearch = new RegExp(keySearch)
     const results = await ProductSchema.find({
         isPublished: true,
@@ -56,6 +56,9 @@ export const findAllProducts = async ({ limit, sort, page, filter, select }) => 
     .limit(limit)
     .select(getSelectData(select))
     .lean()
+}
+const findProduct = async ({ product_id, unSelect}) => {
+    return await ProductSchema.findById(product_id).select(unGetSelect(unSelect))
 }
 const queryProduct = async ({ query, limit, skip}) => {
     return await ProductSchema.find(query).

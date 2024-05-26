@@ -6,6 +6,7 @@ import { authenticationV2 } from './../../auth/authUtils.js';
 const router = express.Router()
 
 router.get('', asyncHandler(productController.findAllProducts))
+router.get('/:product_id', asyncHandler(productController.findProduct))
 router.get('/search/:keySearch', asyncHandler(productController.getListSearchProduct))
 
 // authentication   
