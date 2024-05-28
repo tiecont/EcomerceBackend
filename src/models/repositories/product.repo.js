@@ -57,8 +57,13 @@ export const findAllProducts = async ({ limit, sort, page, filter, select }) => 
     .select(getSelectData(select))
     .lean()
 }
-const findProduct = async ({ product_id, unSelect}) => {
+export const findProduct = async ({ product_id, unSelect}) => {
     return await ProductSchema.findById(product_id).select(unGetSelect(unSelect))
+}
+export const updateProductById = async ({ product_id, bodyUpdate, model, isNew = true}) => {
+    return await model.findByIdAndUpdate(product_id, bodyUpdate, {
+        new: isNew
+    })
 }
 const queryProduct = async ({ query, limit, skip}) => {
     return await ProductSchema.find(query).

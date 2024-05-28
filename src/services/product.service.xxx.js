@@ -1,7 +1,8 @@
 'use strict'
 import { BadRequestError } from '../core/error.response.js';
 import { ClothingSchema, ElectronicSchema, FurnitureSchema, ProductSchema } from '../models/product.model.js';
-import { findAllDraftForShop, findAllProducts, findAllPublishForShop, publishProductByShop, unPublishProductByShop } from '../models/repositories/product.repo.js';
+import { findAllDraftForShop, findAllProducts, findAllPublishForShop, publishProductByShop, unPublishProductByShop, updateProductById } from '../models/repositories/product.repo.js';
+import { removeUndefinedOject, updateNestedObjectParser } from '../utils/index.js';
 import { searchProductByUser } from './../models/repositories/product.repo.js';
 
 // define factory class to create product
@@ -21,10 +22,10 @@ class ProductFactory {
         if (!productClass) throw new BadRequestError(`Inavlid Product Types ${type}`)
         return new productClass(payload).createProduct()
     }
-    static async updateProduct( type, payload ) {
+    static async updateProduct( type, product_id, payload ) {
         const productClass = ProductFactory.productRegistry[type]
         if (!productClass) throw new BadRequestError(`Inavlid Product Types ${type}`)
-        return new productClass(payload).createProduct()
+        return new productClass(payload).updateProduct(product_id)
     }
     // PUT //
     static async publishProductByShop({ product_shop, product_id}) {
@@ -80,6 +81,12 @@ class Product {
     async createProduct( product_id){
         return await ProductSchema.create({ ...this, _id: product_id})
     }
+
+    // update product
+    async updateProduct({ product_id, bodyUpdate}) {
+
+        return await updateProductById({product_id, bodyUpdate, model: ProductSchema})
+    }
 }
 
 // create sub-class for different product types Clothing
@@ -92,6 +99,22 @@ class Clothing extends Product {
         if (!newProduct) throw new BadRequestError('Create new Product Error')
         
         return newProduct
+    }
+
+    async updateProduct( { product_id }) {
+        // 1. Remove attrivbutes have null and undefined
+        console.log(`[1]::`, this)
+        const objParams = removeUndefinedOject(this)
+        console.log(`[2]::`, objParams)
+        if (objParams.product_attributes) {
+            // update child
+            await updateProductById({ product_id, 
+                bodyUpdate: updateNestedObjectParser(objParams.product.product_attributes),
+                model: ClothingSchema})
+        }
+        const updateProduct = await super.updateProduct(product_id, updateNestedObjectParser(objParams))
+        return updateProduct
+        
     }
 }
 
