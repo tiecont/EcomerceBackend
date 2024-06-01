@@ -14,10 +14,11 @@ export const unGetSelect = (select = []) => {
 
 export const removeUndefinedOject = obj => {
     Object.keys(obj).forEach(key => {
-        if (obj[key] === null || undefined) {
+        if (obj[key] === undefined || null) {
             delete obj[key]
         }
     })
+    return obj
 }
 
 export const updateNestedObjectParser  = obj => {

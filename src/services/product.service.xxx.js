@@ -56,8 +56,6 @@ class ProductFactory {
         return await findProduct({ product_id, unSelect: ['__v']})
     }
 }
-
-// define basic product class 
 class Product {
     constructor({
         product_name,
@@ -84,7 +82,6 @@ class Product {
 
     // update product
     async updateProduct({ product_id, bodyUpdate}) {
-
         return await updateProductById({product_id, bodyUpdate, model: ProductSchema})
     }
 }
@@ -101,15 +98,13 @@ class Clothing extends Product {
         return newProduct
     }
 
-    async updateProduct( { product_id }) {
+    async updateProduct({product_id}) {
         // 1. Remove attrivbutes have null and undefined
-        console.log(`[1]::`, this)
         const objParams = removeUndefinedOject(this)
-        console.log(`[2]::`, objParams)
         if (objParams.product_attributes) {
             // update child
             await updateProductById({ product_id, 
-                bodyUpdate: updateNestedObjectParser(objParams.product.product_attributes),
+                bodyUpdate: updateNestedObjectParser(objParams.product_attributes),
                 model: ClothingSchema})
         }
         const updateProduct = await super.updateProduct(product_id, updateNestedObjectParser(objParams))
