@@ -64,6 +64,7 @@ export const updateProductById = async ({ product_id, bodyUpdate, model, isNew =
     return await model.findByIdAndUpdate(product_id, bodyUpdate, {
         new: isNew
     })
+    
 }
 const queryProduct = async ({ query, limit, skip}) => {
     return await ProductSchema.find(query).

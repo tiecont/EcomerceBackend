@@ -25,7 +25,7 @@ class ProductFactory {
     static async updateProduct( type, product_id, payload ) {
         const productClass = ProductFactory.productRegistry[type]
         if (!productClass) throw new BadRequestError(`Inavlid Product Types ${type}`)
-        return new productClass(payload).updateProduct(product_id)
+        return new productClass(payload).updateProduct({product_id})
     }
     // PUT //
     static async publishProductByShop({ product_shop, product_id}) {
@@ -81,7 +81,7 @@ class Product {
     }
 
     // update product
-    async updateProduct({ product_id, bodyUpdate}) {
+    async updateProduct(product_id, bodyUpdate) {
         return await updateProductById({product_id, bodyUpdate, model: ProductSchema})
     }
 }
@@ -107,8 +107,7 @@ class Clothing extends Product {
                 bodyUpdate: updateNestedObjectParser(objParams.product_attributes),
                 model: ClothingSchema})
         }
-        const updateProduct = await super.updateProduct(product_id, updateNestedObjectParser(objParams))
-        return updateProduct
+        return await super.updateProduct(product_id, updateNestedObjectParser(objParams))
         
     }
 }

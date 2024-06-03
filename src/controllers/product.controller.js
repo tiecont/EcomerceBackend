@@ -5,14 +5,6 @@ import { default as ProductServiceV2 } from "../services/product.service.xxx.js"
 
 export default new class AccessController {
     createProduct = async (req, res, next) => {
-    //     console.log(req.body)
-    //     new SuccessResponse({
-    //        message: 'Create new Product Success',
-    //        metadata: await ProductService.createProduct(req.body.product_type, {
-    //         ...req.body,
-    //         product_shop: req.user.userId
-    //        })
-    //    }).send(res)
        new SuccessResponse({
         message: 'Create new Product Success',
         metadata: await ProductServiceV2.createProduct(req.body.product_type, {
@@ -29,7 +21,7 @@ export default new class AccessController {
             ...req.body,
             product_shop: req.user.userId
         })
-    })
+    }).send(res)
    }
 
    publishProduct = async (req, res, next ) => {
