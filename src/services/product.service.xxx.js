@@ -1,6 +1,7 @@
 'use strict'
 import { BadRequestError } from '../core/error.response.js';
 import { ClothingSchema, ElectronicSchema, FurnitureSchema, ProductSchema } from '../models/product.model.js';
+import { insertInventory } from '../models/repositories/inventory.repo.js';
 import { findAllDraftForShop, findAllProducts, findAllPublishForShop, publishProductByShop, unPublishProductByShop, updateProductById } from '../models/repositories/product.repo.js';
 import { removeUndefinedOject, updateNestedObjectParser } from '../utils/index.js';
 import { searchProductByUser } from './../models/repositories/product.repo.js';
@@ -77,7 +78,16 @@ class Product {
         this.product_attributes = product_attributes
     }
     async createProduct( product_id){
-        return await ProductSchema.create({ ...this, _id: product_id})
+        const newProduct = await ProductSchema.create({ ...this, _id: product_id})
+        if (newProduct) {
+            // add product_stock vào inventory collection
+            await insertInventory({ 
+                product_id: newProduct._id,
+                shop_id: this.product_shop,
+                stock: this.product_quantity
+            })
+        }
+        return newProduct
     }
 
     // update product

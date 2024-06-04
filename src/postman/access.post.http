@@ -2,7 +2,7 @@
 
 ### signup
 # GET {{url_dev}}/product
-GET {{url_dev}}/search/bang quan
+GET {{url_dev}}/product/search/ao thun
 # GET {{url_dev}}/product/drafts/all
 # GET {{url_dev}}/product/publish/all
 # POST {{url_dev}}/product/publish/664972570529d443eefb454b
@@ -10,7 +10,7 @@ GET {{url_dev}}/search/bang quan
 # POST {{url_dev}}/shop/login
 # POST {{url_dev}}/product
 Content-Type: application/json
-x-api-key: de44a21485e24d51931779c2a4b85fc631ab29abed996aa7653b7cee425ae01a4a342b59529826710fe9002c2c593265226ebf534037487ad28ad5719a091c45
+x-api-key: bbcc91c7f35dd4ad2f55ba565bfe5f806608fc5c6161060d0eedd5e3ed7c3ae310fd7d3a1410f734f20e3d1722e13687396c3cd58085ae3b298f9aa2f350365c
 x-client-id: 66366f86ab9ba72a07469e60
 x-rtoken-id: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY2MDI5OTQsImV4cCI6MTcxNzIwNzc5NH0.ORr5vFDmMONGwrp2uHgAlIqOoPMQahkv-H1HlKvzfp0
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjM2NmY4NmFiOWJhNzJhMDc0NjllNjAiLCJlbWFpbCI6IlNob3BEZXZUaXBKc0BnbWFpbC5jb20iLCJpYXQiOjE3MTY2MDI5OTQsImV4cCI6MTcxNjc3NTc5NH0.DhziRimB9y2c_d4PI5CC0wZwdtQY8UD_pTEjwv5kZfY

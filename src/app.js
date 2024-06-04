@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 const app = express()
 // init middleware
-app.use(morgan('compile'))
+app.use(morgan())
 // compile - common - short - tiny
 app.use(helmet())
 app.use(compression())
