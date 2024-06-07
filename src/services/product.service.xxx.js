@@ -2,7 +2,7 @@
 import { BadRequestError } from '../core/error.response.js';
 import { ClothingSchema, ElectronicSchema, FurnitureSchema, ProductSchema } from '../models/product.model.js';
 import { insertInventory } from '../models/repositories/inventory.repo.js';
-import { findAllDraftForShop, findAllProducts, findAllPublishForShop, publishProductByShop, unPublishProductByShop, updateProductById } from '../models/repositories/product.repo.js';
+import { findAllDraftForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, unPublishProductByShop, updateProductById } from '../models/repositories/product.repo.js';
 import { removeUndefinedOject, updateNestedObjectParser } from '../utils/index.js';
 import { searchProductByUser } from './../models/repositories/product.repo.js';
 
@@ -50,11 +50,11 @@ class ProductFactory {
     }
     static async findAllProducts ({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true}}) {
         return await findAllProducts({ limit, sort, filter, page, 
-            select: ['product_name', 'product_price', 'product_thumb']
+            select: ['product_name', 'product_price', 'product_thumb', 'product_shop']
         })
     }
-    static async findProduct ({ product_id }) {
-        return await findProduct({ product_id, unSelect: ['__v']})
+    static async findProduct ({ productId }) {
+        return await findProduct({ productId, unSelect: ['__v']})
     }
 }
 class Product {

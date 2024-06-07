@@ -122,12 +122,12 @@ class DiscountService {
    }
 
    // APPLY DISCOUNT CODE
-   static async getDiscountAmount({code, user_id, shop_id, products}) {
+   static async getDiscountAmount({code, userId, shopId, products}) {
         const foundDiscount = await checkDiscountExists({
             model: discountModel,
             filter: {
                 discount_code: code,
-                discount_shop_id: convertToObjectIdMongodb(shop_id)
+                discount_shop_id: convertToObjectIdMongodb(shopId)
             }
         })
         if (!foundDiscount) {
@@ -163,7 +163,7 @@ class DiscountService {
             }
         }
         if (discount_max_uses_per_user > 0) {
-            const userUsedDiscount = discount_users_used.find(user => user.userId === user_id)
+            const userUsedDiscount = discount_users_used.find(user => user.userId === userId)
             if (userUsedDiscount) throw new NotFoundError('Discount Not Avalable')
         }
         

@@ -17,7 +17,7 @@ export default new class AccessController {
    updateProduct = async (req, res, next ) => {
     new SuccessResponse({
         message: 'Update Product Success!',
-        metadata: await ProductServiceV2.updateProduct(req.body.product_type, req.params.product_id, {
+        metadata: await ProductServiceV2.updateProduct(req.body.product_type, req.params.productId, {
             ...req.body,
             product_shop: req.user.userId
         })

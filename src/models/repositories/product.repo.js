@@ -1,7 +1,8 @@
 'use strict'
 
 import { Types } from 'mongoose';
-import { getSelectData, unGetSelect } from '../../utils/index.js';
+import { BadRequestError } from '../../core/error.response.js';
+import { convertToObjectIdMongodb, getSelectData } from '../../utils/index.js';
 import { ProductSchema } from "../product.model.js";
 
 export const findAllDraftForShop = async ({ query, limit, skip}) => {
@@ -27,7 +28,7 @@ export const publishProductByShop = async ({ product_shop, product_id }) => {
         product_shop: new Types.ObjectId(product_shop),
         _id: new Types.ObjectId(product_id)
     })
-    if (!foundShop) return null
+    if (!foundShop) throw new BadRequestError('Product is not longer by shop')
 
     foundShop.isDraft = false
     foundShop.isPublished = true
@@ -57,11 +58,11 @@ export const findAllProducts = async ({ limit, sort, page, filter, select }) => 
     .select(getSelectData(select))
     .lean()
 }
-export const findProduct = async ({ product_id, unSelect}) => {
-    return await ProductSchema.findById(product_id).select(unGetSelect(unSelect))
+export const findProduct = async ({ productId, select }) => {
+    return await ProductSchema.findById(productId).select(getSelectData(select))
 }
-export const updateProductById = async ({ product_id, bodyUpdate, model, isNew = true}) => {
-    return await model.findByIdAndUpdate(product_id, bodyUpdate, {
+export const updateProductById = async ({ productId, bodyUpdate, model, isNew = true}) => {
+    return await model.findByIdAndUpdate( productId, bodyUpdate, {
         new: isNew
     })
     
@@ -74,4 +75,19 @@ const queryProduct = async ({ query, limit, skip}) => {
     .limit(limit)
     .lean()
     .exec()
+}
+
+export const getProductById = async ( productId ) => {
+    return await ProductSchema.findOne({ _id: convertToObjectIdMongodb(productId)}).lean()
+}
+
+export const checkProductByServer = async (products) => {
+    return await Promise.all(products.map( async product => {
+        const foundProduct = await getProductById(product.productId)
+        if (foundProduct) return {
+            price: foundProduct.product_price,
+            quantity: product.quantity,
+            productId: product.productId
+        }
+    }))
 }
