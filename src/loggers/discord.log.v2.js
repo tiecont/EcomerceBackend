@@ -19,7 +19,7 @@ class LoggerService {
             console.log(`logged is at ${this.client.user.tag}!`)
         })
         this.client.login(process.env.TOKEN_DISCORD)
-        
+
     }
     sendToMessage(message = 'message') {
         const channel = this.client.channels.cache.get(this.channelId)
@@ -27,7 +27,7 @@ class LoggerService {
             console.error(`Coudn't find a channel...`, this.channelId)
             return
         }
-        channel.send(message).cache(e => console.log(e))
+        channel.send(message).catch(e => console.log(e))
     }
 }
 

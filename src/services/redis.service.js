@@ -1,10 +1,10 @@
 'use strict'
 
-import { createClient } from "redis"
-import { promisify } from 'util'
-import { reservationInventory } from '../models/repositories/inventory.repo.js'
-const redisClient = createClient()
+import redis from 'redis';
+import { promisify } from 'util';
+import { reservationInventory } from '../models/repositories/inventory.repo.js';
 
+const redisClient = redis.createClient()
 redisClient.ping((err, result) => {
     if (err) {
         console.log('Redis is not connected: ', err)
@@ -13,8 +13,8 @@ redisClient.ping((err, result) => {
     }
 })
 
-const pExpire = promisify(redisClient.pExpire).bind(redisClient)
-const setnxAsync = promisify(redisClient.setNX).bind(redisClient)
+const pExpire = promisify(redisClient.pexpire).bind(redisClient)
+const setnxAsync = promisify(redisClient.setnx).bind(redisClient)
 
 // Khoá lạc quan - OPTIMISTIC LOCK
 export const acquireLock = async ({ productId, quantity, cartId }) => {

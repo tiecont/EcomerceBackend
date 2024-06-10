@@ -15,9 +15,13 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+// test pub.sub redis
+productTest.purchaseProduct('product:001', 10)
 // init db
 import './dps/init.mongodb.js';
 import router from './routes/index.js';
+import './tests/inventory.test.js';
+import productTest from './tests/product.test.js';
 // import checkConnect from './helpers/check.connect.js';
 // checkConnect.checkOverLoad()
 // init routes
