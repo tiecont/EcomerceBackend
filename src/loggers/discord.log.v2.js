@@ -21,6 +21,20 @@ class LoggerService {
         this.client.login(process.env.TOKEN_DISCORD)
 
     }
+    sendToFormatCode(logdata) {
+        const { code, message = 'This is some additional information about the code.', title = 'Code Example' } = logdata
+        const codeMessage = {
+            content: message,
+            embeds: [
+                {
+                    color: parseInt('00ff00', 16),
+                    title,
+                    description: '```json\n' + JSON.stringify(code, null, 2) + '\n```'
+                }
+            ]
+        }
+        this.sendToMessage(codeMessage)
+    }
     sendToMessage(message = 'message') {
         const channel = this.client.channels.cache.get(this.channelId)
         if (!channel) {
