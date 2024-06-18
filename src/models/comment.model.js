@@ -14,7 +14,7 @@ const commentSchema = new Schema({
     comment_parentId: { type: Schema.Types.ObjectId, ref: DOCUMENT_NAME},
     isDeleted: { type: Boolean, default: false}
 }, {
-    colections: COLLECTION_NAME,
+    collection: COLLECTION_NAME,
     timestamps: true
 })
 

@@ -2,7 +2,8 @@
 
 import { Schema, mongoose } from "mongoose";
 // Declare the Schema of the Mongo model
-const COLLECTION_NAME = 'shop'
+const DOCUMENT_NAME = 'Shop'
+const COLLECTION_NAME = 'Shops'
 var shopSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -39,4 +40,4 @@ var shopSchema = new mongoose.Schema({
 
 //Export the model
 // module.exports = mongoose.model('Shop', shopSchema);
-export default mongoose.model('Shop', shopSchema)
+export default mongoose.model(DOCUMENT_NAME, shopSchema)

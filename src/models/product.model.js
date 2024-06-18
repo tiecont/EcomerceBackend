@@ -47,7 +47,7 @@ const clothingSchema = new Schema({
     size: String,
     materials: String
 }, {
-    collection: 'clothes',
+    collection: 'Clothes',
     timestamps: true
 });
 
@@ -57,7 +57,7 @@ const electronicSchema = new Schema({
     model: String,
     color: String
 }, {
-    collection: 'electronics',
+    collection: 'Electronics',
     timestamps: true
 });
 
@@ -67,7 +67,7 @@ const furnitureSchema = new Schema({
     size: String,
     materials: String
 }, {
-    collection: 'furnitures',
+    collection: 'Furnitures',
     timestamps: true
 });
 

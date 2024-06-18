@@ -21,17 +21,17 @@ x-api-key: bbcc91c7f35dd4ad2f55ba565bfe5f806608fc5c6161060d0eedd5e3ed7c3ae310fd7
     "password": "123"
 }
 
-# {
-#     "product_name": "Product 002",
-#     "product_description": "Áo thun nam MRM kiểu dáng Regular fit tôn dáng cơ thể",
-#     "product_price": 1234,
-#     "product_shop": "66366f86ab9ba72a07469e60",
-#     "product_type": "Clothing",
-#     "product_thumb": "product_thumb",
-#     "product_quantity": 230,
-#     "product_attributes": {
-#         "brand": "MRM VietNam China",
-#         "size": "XL",
-#         "material": "Thun"
-#     }
-# }
+{
+    "product_name": "Product 002",
+    "product_description": "Áo thun nam MRM kiểu dáng Regular fit tôn dáng cơ thể",
+    "product_price": 1234,
+    "product_shop": "66366f86ab9ba72a07469e60",
+    "product_type": "Clothing",
+    "product_thumb": "product_thumb",
+    "product_quantity": 230,
+    "product_attributes": {
+        "brand": "MRM VietNam China",
+        "size": "XL",
+        "material": "Thun"
+    }
+}

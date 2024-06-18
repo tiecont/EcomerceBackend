@@ -3,9 +3,9 @@ import { BadRequestError } from '../core/error.response.js';
 import { ClothingSchema, ElectronicSchema, FurnitureSchema, ProductSchema } from '../models/product.model.js';
 import { insertInventory } from '../models/repositories/inventory.repo.js';
 import { findAllDraftForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, unPublishProductByShop, updateProductById } from '../models/repositories/product.repo.js';
+import Notification from '../services/notification.service.js';
 import { removeUndefinedOject, updateNestedObjectParser } from '../utils/index.js';
 import { searchProductByUser } from './../models/repositories/product.repo.js';
-
 // define factory class to create product
 class ProductFactory {
     /*
@@ -86,6 +86,16 @@ class Product {
                 shop_id: this.product_shop,
                 stock: this.product_quantity
             })
+            // push noti to system
+            Notification.pushNotiToSystem({
+                type: 'SHOP-001',
+                received: 1,
+                senderId: this.product_shop,
+                options: {
+                    product_name: this.product_name,
+                    shop_name: this.product_shop
+                }
+            }).then(rs => console.log(rs)).catch(err => console.log(err))
         }
         return newProduct
     }

@@ -14,7 +14,7 @@ const cartSchema = new Schema({
     cart_count_product: { type: Number, required: true, default: 0},
     cart_userId: { type: Number, required: true}
 }, {
-    colections: COLLECTION_NAME,
+    collection: COLLECTION_NAME,
     timestamps: {
         createAt: 'createOn',
         updateAt: 'modifiedOn',

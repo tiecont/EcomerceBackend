@@ -1,7 +1,7 @@
 'use strict'
-
 import { NotFoundError } from "../core/error.response.js"
 import commentModel from "../models/comment.model.js"
+import { findProduct } from '../models/repositories/product.repo.js'
 import { convertToObjectIdMongodb } from '../utils/index.js'
 export default class CommentService {
     static async createComment({ productId, userId, content, parentComentId = null}) {
@@ -57,7 +57,7 @@ export default class CommentService {
             
             const comments = await commentModel.find({
                 comment_productId: convertToObjectIdMongodb(productId),
-                comment_left: { $st: parent.comment_left},
+                comment_left: { $gt: parent.comment_left},
                 comment_right: { $lte: parent.comment_right}
             }).select({ 
                 comment_left: 1,
@@ -70,13 +70,44 @@ export default class CommentService {
         }
         const comments = await commentModel.find({
             comment_productId: convertToObjectIdMongodb(productId),
-            comment_parent: convertToObjectIdMongodb(parentCommentId)
-        }).select({ 
+            comment_parent: parentCommentId
+        }).select({
             comment_left: 1,
             comment_right: 1,
             comment_content: 1,
             comment_parentId: 1
         }).sort({ comment_left: 1})
         return comments
+    }
+    static async deleteComments({ commentId, productId}) {
+        const foundProduct = await findProduct({ productId })
+        if (!foundProduct) throw new NotFoundError('Product not found')
+        
+        const comment = await commentModel.findById(commentId)
+        if (!comment) throw new NotFoundError('Comment not found')
+        
+        const leftValue = comment.comment_left
+        const rightValue = comment.comment_right
+        // 2
+        const witdh = rightValue - leftValue + 1
+        // 3 delete all children commentId
+        await commentModel.deleteMany({
+            comment_productId: convertToObjectIdMongodb(productId),
+            comment_left: { $gte: leftValue, $lte: rightValue}
+        })
+        // 4 update left and right value
+        await commentModel.updateMany({
+            comment_productId: convertToObjectIdMongodb(productId),
+            comment_right: { $gt: rightValue}
+        }, {
+            $inc: { comment_right: -witdh}
+        })
+        await commentModel.updateMany({
+            comment_productId: convertToObjectIdMongodb(productId),
+            comment_left: { $gt: rightValue}
+        }, {
+            $inc: { comment_left: -witdh}
+        })
+        return true
     }
 }
