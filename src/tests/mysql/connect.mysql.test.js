@@ -14,11 +14,13 @@ console.time('::::::TIMER:::')
 const insertBatch = async () => {
     const values = []
     for (let i = 0; i < batchSize && currentId <= totalSize; i++) {
-        const name = `name-${currentId}`
-        const age = currentId
-        const address = `address-${currentId}`
+        const name = `name-${currentId}`;
+        const age = currentId % 100
+
+        const address = `address-${currentId}`;
+
         values.push([currentId, name, age, address]);
-        currentId++
+        currentId++;
     }
     if (!values.length) {
         console.timeEnd('::::::TIMER:::')
