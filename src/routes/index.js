@@ -10,6 +10,7 @@ import discount from './discount/index.js';
 import inventory from './inventory/index.js';
 import notification from './notification/index.js';
 import product from './shop/index.js';
+import upload from './upload/index.js';
 const router = express.Router()
 
 // add log to discord
@@ -27,5 +28,6 @@ router.use('/v1/api/product', product)
 router.use('/v1/api/comment' , comment)
 router.use('/v1/api', access)
 router.use('/v1/api/notification', notification)
+router.use('/v1/api/upload', upload)
 
 export default router
